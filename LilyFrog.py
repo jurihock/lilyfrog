@@ -1,14 +1,12 @@
+from PyQt4 import QtCore
+from PyQt4.QtGui import QApplication
 import sys
-from PyQt4 import QtGui
 
 from GUI import *
 
-def main():
+if __name__ == '__main__':
 
-    application = QtGui.QApplication(sys.argv)
+    application = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     sys.exit(application.exec_())
-
-if __name__ == '__main__':
-    main()

@@ -22,7 +22,9 @@ class KeyboardOutputDevice:
             self.device = None
 
     def pressKeys(self, scancodes):
-        
+
+        if len(scancodes) == 0: return
+
         for scancode in scancodes:
 
             isShiftRequired = isinstance(scancode, list)
