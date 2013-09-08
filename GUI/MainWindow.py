@@ -1,24 +1,22 @@
 from PyQt4 import QtCore
-from PyQt4.QtGui import QWidget
+from PyQt4.QtGui import QMainWindow
 
+from MainWindowUI import Ui_MainWindow as MainWindowUI
 from IOController import IOController
 
-class MainWindow(QWidget):
+class MainWindow(QMainWindow, MainWindowUI):
 
     ioController = None
 
     def __init__(self):
 
-        super(MainWindow, self).__init__()
-        self.initUI()
+        QMainWindow.__init__(self)
+
+        self.setupUi(self)
+        self.setFixedSize(self.size())
 
         self.ioController = IOController()
         self.ioController.startPolling()
-
-    def initUI(self):
-
-        self.setWindowTitle('LilyFrog')
-        self.setGeometry(10, 10, 640, 480)
 
     def closeEvent(self, event):
 
