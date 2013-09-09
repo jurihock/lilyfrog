@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'GUI/MainWindowUI.ui'
 #
-# Created: Mon Sep  9 10:24:48 2013
+# Created: Mon Sep  9 11:33:16 2013
 #      by: PyQt4 UI code generator 4.10.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,13 +26,37 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(300, 370)
+        MainWindow.resize(340, 430)
         self.ctrlMainWindowWidget = QtGui.QWidget(MainWindow)
         self.ctrlMainWindowWidget.setObjectName(_fromUtf8("ctrlMainWindowWidget"))
         self.ctrlMainWindowWidgetLayout = QtGui.QGridLayout(self.ctrlMainWindowWidget)
         self.ctrlMainWindowWidgetLayout.setObjectName(_fromUtf8("ctrlMainWindowWidgetLayout"))
         self.ctrlMainWindowLayout = QtGui.QVBoxLayout()
         self.ctrlMainWindowLayout.setObjectName(_fromUtf8("ctrlMainWindowLayout"))
+        self.ctrlDeviceStatus = QtGui.QGroupBox(self.ctrlMainWindowWidget)
+        self.ctrlDeviceStatus.setObjectName(_fromUtf8("ctrlDeviceStatus"))
+        self.gridLayout_4 = QtGui.QGridLayout(self.ctrlDeviceStatus)
+        self.gridLayout_4.setSpacing(0)
+        self.gridLayout_4.setContentsMargins(0, -1, 0, 0)
+        self.gridLayout_4.setObjectName(_fromUtf8("gridLayout_4"))
+        self.ctrlDeviceStatusLayout = QtGui.QHBoxLayout()
+        self.ctrlDeviceStatusLayout.setObjectName(_fromUtf8("ctrlDeviceStatusLayout"))
+        self.ctrlKeyboardOutput = QtGui.QCheckBox(self.ctrlDeviceStatus)
+        self.ctrlKeyboardOutput.setEnabled(False)
+        self.ctrlKeyboardOutput.setObjectName(_fromUtf8("ctrlKeyboardOutput"))
+        self.ctrlDeviceStatusLayout.addWidget(self.ctrlKeyboardOutput)
+        self.ctrlKeypadInput = QtGui.QCheckBox(self.ctrlDeviceStatus)
+        self.ctrlKeypadInput.setEnabled(False)
+        self.ctrlKeypadInput.setObjectName(_fromUtf8("ctrlKeypadInput"))
+        self.ctrlDeviceStatusLayout.addWidget(self.ctrlKeypadInput)
+        self.ctrlMidiInput = QtGui.QCheckBox(self.ctrlDeviceStatus)
+        self.ctrlMidiInput.setEnabled(False)
+        self.ctrlMidiInput.setObjectName(_fromUtf8("ctrlMidiInput"))
+        self.ctrlDeviceStatusLayout.addWidget(self.ctrlMidiInput)
+        self.gridLayout_4.addLayout(self.ctrlDeviceStatusLayout, 0, 0, 1, 1)
+        self.ctrlMainWindowLayout.addWidget(self.ctrlDeviceStatus)
+        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.ctrlMainWindowLayout.addItem(spacerItem)
         self.ctrlMainWindowLayout1 = QtGui.QHBoxLayout()
         self.ctrlMainWindowLayout1.setObjectName(_fromUtf8("ctrlMainWindowLayout1"))
         self.ctrlAccidental = QtGui.QGroupBox(self.ctrlMainWindowWidget)
@@ -139,15 +163,15 @@ class Ui_MainWindow(object):
         self.ctrlDuration16.setObjectName(_fromUtf8("ctrlDuration16"))
         self.ctrlDurationLayout3.addWidget(self.ctrlDuration16)
         self.ctrlDurationLayout.addLayout(self.ctrlDurationLayout3)
-        spacerItem = QtGui.QSpacerItem(0, 9, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
-        self.ctrlDurationLayout.addItem(spacerItem)
+        spacerItem1 = QtGui.QSpacerItem(0, 9, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
+        self.ctrlDurationLayout.addItem(spacerItem1)
         self.ctrlDurationDot = QtGui.QCheckBox(self.ctrlDuration)
         self.ctrlDurationDot.setObjectName(_fromUtf8("ctrlDurationDot"))
         self.ctrlDurationLayout.addWidget(self.ctrlDurationDot)
         self.gridLayout_3.addLayout(self.ctrlDurationLayout, 1, 0, 1, 1)
         self.ctrlMainWindowLayout.addWidget(self.ctrlDuration)
-        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.ctrlMainWindowLayout.addItem(spacerItem1)
+        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.ctrlMainWindowLayout.addItem(spacerItem2)
         self.ctrlEnable = QtGui.QPushButton(self.ctrlMainWindowWidget)
         self.ctrlEnable.setEnabled(True)
         self.ctrlEnable.setMinimumSize(QtCore.QSize(0, 50))
@@ -180,6 +204,10 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "LilyFrog Control", None))
+        self.ctrlDeviceStatus.setTitle(_translate("MainWindow", "Device status", None))
+        self.ctrlKeyboardOutput.setText(_translate("MainWindow", "Keyboard OUT", None))
+        self.ctrlKeypadInput.setText(_translate("MainWindow", "Keypad IN", None))
+        self.ctrlMidiInput.setText(_translate("MainWindow", "MIDI IN", None))
         self.ctrlAccidental.setTitle(_translate("MainWindow", "Accidental change", None))
         self.ctrlAccidentalNone.setText(_translate("MainWindow", "None", None))
         self.ctrlAccidentalFlat.setText(_translate("MainWindow", "Flat", None))

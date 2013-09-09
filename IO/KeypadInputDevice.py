@@ -37,13 +37,17 @@ class KeypadInputDevice(QThread):
         if self.isConnected():
             print 'Grab keypad input device.'
             self.device.grab()
-            self.device.set_led(ecodes.LED_NUML, 1)
+    
+    def setLed(self, value):
+
+        if self.isConnected():
+            self.device.set_led( \
+                ecodes.LED_NUML, int(value))
 
     def stop(self):
 
         if self.isConnected():
             print 'Ungrab and close keypad input device.'
-            self.device.set_led(ecodes.LED_NUML, 0)
             self.device.ungrab()
             self.device.close()
             self.device = None

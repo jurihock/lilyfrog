@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
-    <height>370</height>
+    <width>340</width>
+    <height>430</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,6 +17,74 @@
    <layout class="QGridLayout" name="ctrlMainWindowWidgetLayout">
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="ctrlMainWindowLayout">
+      <item>
+       <widget class="QGroupBox" name="ctrlDeviceStatus">
+        <property name="title">
+         <string>Device status</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="ctrlDeviceStatusLayout">
+           <item>
+            <widget class="QCheckBox" name="ctrlKeyboardOutput">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Keyboard OUT</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="ctrlKeypadInput">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Keypad IN</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="ctrlMidiInput">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>MIDI IN</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="ctrlMainWindowLayout1">
         <item>

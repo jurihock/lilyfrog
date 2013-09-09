@@ -6,8 +6,8 @@ from IOController import IOController
 
 class MainWindow(QMainWindow, MainWindowUI):
 
-    ioController = None
     isInitialized = False
+    ioController = None
 
     def __init__(self):
 
@@ -21,9 +21,21 @@ class MainWindow(QMainWindow, MainWindowUI):
 
         if not self.isInitialized:
 
-            self.ioController = IOController()
-            self.ioController.start()
             self.isInitialized = True
+
+            self.ioController = IOController()
+            self.ioController.isEnabled = False
+            self.ioController.start()
+
+            self.ioController.isEnabledCallback.connect(self.onEnableChanged)
+
+            self.ctrlKeyboardOutput.setChecked( \
+                self.ioController.keyboardOutput.isConnected())
+            self.ctrlKeypadInput.setChecked( \
+                self.ioController.keypadInput.isConnected())
+            self.ctrlMidiInput.setChecked( \
+                self.ioController.midiInput.isConnected())
+            
 
     def closeEvent(self, event):
 
@@ -76,4 +88,8 @@ class MainWindow(QMainWindow, MainWindowUI):
 
     @QtCore.pyqtSlot(bool)
     def onEnableToggled(self, checked):
-        print 'onEnableToggled'
+        self.ioController.isEnabled = checked
+
+    @QtCore.pyqtSlot(bool)
+    def onEnableChanged(self, checked):
+        self.ctrlEnable.setChecked(checked)

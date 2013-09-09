@@ -1,15 +1,26 @@
 from PyQt4 import QtCore
+from PyQt4.QtCore import QObject
 from evdev.ecodes import *
 
 from IO import *
 
-class IOController:
+class IOController(QObject):
 
     keyboardOutput = None
     keypadInput    = None
     midiInput      = None
 
-    isEnabled = True
+    __isEnabled = False
+
+    def getIsEnabled(self):
+        return self.__isEnabled
+        
+    def setIsEnabled(self, value):
+        self.__isEnabled = value
+        self.keypadInput.setLed(value)
+
+    isEnabled = property(getIsEnabled, setIsEnabled)
+    isEnabledCallback = QtCore.pyqtSignal(bool)
 
     noteDuration          = []
     isDotRequested        = False
@@ -19,6 +30,8 @@ class IOController:
     isSharpRequested      = False
 
     def __init__(self):
+        
+        QObject.__init__(self)
 
         self.keyboardOutput = KeyboardOutputDevice()
         self.keypadInput = KeypadInputDevice()
@@ -53,12 +66,24 @@ class IOController:
 
         # print scancode
 
+        if scancode == KEY_NUMLOCK:
+
+            self.isEnabled = not self.isEnabled
+            self.isEnabledCallback.emit(self.isEnabled)
+            return
+
+        if scancode == KEY_SPACE:
+
+            self.isEnabled = False
+            self.isEnabledCallback.emit(self.isEnabled)
+            return
+
+        elif not self.isEnabled: return
+
         keys = []
 
         # State variables
-        if scancode == KEY_NUMLOCK:
-            self.isEnabled = not self.isEnabled
-        elif scancode == KEY_KPDOT:
+        if scancode == KEY_KPDOT:
             self.isDotRequested = not self.isDotRequested
         elif scancode == KEY_KPMINUS:
             self.isOctaveDownRequested = not self.isOctaveDownRequested
@@ -101,6 +126,8 @@ class IOController:
     def midiInputCallback(self, notenum):
 
         # print notenum % 12, notenum / 12
+        
+        if not self.isEnabled: return
 
         note = notenum % 12
         # octave = notenum / 12
@@ -197,7 +224,7 @@ class IOController:
             self.isOctaveDownRequested = not self.isOctaveDownRequested
         elif self.isOctaveUpRequested:
             keys.extend([KEY_APOSTROPHE])
-            keys.extend([KEY_SPACE]) # US international layout
+            keys.extend([KEY_SPACE]) # because of dead key keyboard layout
             self.isOctaveUpRequested = not self.isOctaveUpRequested
 
         keys.extend(self.noteDuration)
