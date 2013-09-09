@@ -13,14 +13,14 @@
   <property name="windowTitle">
    <string>LilyFrog Control</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_4">
+  <widget class="QWidget" name="ctrlMainWindowWidget">
+   <layout class="QGridLayout" name="ctrlMainWindowWidgetLayout">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="ctrlMainWindowLayout">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="ctrlMainWindowLayout1">
         <item>
-         <widget class="QGroupBox" name="groupBox">
+         <widget class="QGroupBox" name="ctrlAccidental">
           <property name="title">
            <string>Accidental change</string>
           </property>
@@ -41,9 +41,9 @@
             <number>0</number>
            </property>
            <item row="0" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout">
+            <layout class="QVBoxLayout" name="ctrlAccidentalLayout">
              <item>
-              <widget class="QRadioButton" name="radioButton_3">
+              <widget class="QRadioButton" name="ctrlAccidentalNone">
                <property name="font">
                 <font>
                  <weight>75</weight>
@@ -59,14 +59,14 @@
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton">
+              <widget class="QRadioButton" name="ctrlAccidentalFlat">
                <property name="text">
                 <string>Flat</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_2">
+              <widget class="QRadioButton" name="ctrlAccidentalSharp">
                <property name="text">
                 <string>Sharp</string>
                </property>
@@ -78,7 +78,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_2">
+         <widget class="QGroupBox" name="ctrlOctave">
           <property name="title">
            <string>Octave change</string>
           </property>
@@ -99,9 +99,9 @@
             <number>0</number>
            </property>
            <item row="0" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <layout class="QVBoxLayout" name="ctrlOctaveLayout">
              <item>
-              <widget class="QRadioButton" name="radioButton_4">
+              <widget class="QRadioButton" name="ctrlOctaveNone">
                <property name="font">
                 <font>
                  <weight>75</weight>
@@ -117,14 +117,14 @@
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_5">
+              <widget class="QRadioButton" name="ctrlOctaveDown">
                <property name="text">
                 <string>Down</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_6">
+              <widget class="QRadioButton" name="ctrlOctaveUp">
                <property name="text">
                 <string>Up</string>
                </property>
@@ -138,7 +138,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_3">
+       <widget class="QGroupBox" name="ctrlDuration">
         <property name="title">
          <string>Duration change</string>
         </property>
@@ -159,9 +159,9 @@
           <number>0</number>
          </property>
          <item row="1" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0,0,0,0,0">
+          <layout class="QVBoxLayout" name="ctrlDurationLayout" stretch="0,0,0,0,0,0">
            <item>
-            <widget class="QRadioButton" name="radioButton_16">
+            <widget class="QRadioButton" name="ctrlDurationNone">
              <property name="font">
               <font>
                <weight>75</weight>
@@ -177,23 +177,23 @@
             </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <layout class="QHBoxLayout" name="ctrlDurationLayout1">
              <item>
-              <widget class="QRadioButton" name="radioButton_14">
+              <widget class="QRadioButton" name="ctrlDuration1">
                <property name="text">
                 <string>Whole</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_15">
+              <widget class="QRadioButton" name="ctrlDurationBreve">
                <property name="text">
                 <string>Breve</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_13">
+              <widget class="QRadioButton" name="ctrlDurationLonga">
                <property name="text">
                 <string>Longa</string>
                </property>
@@ -202,23 +202,23 @@
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <layout class="QHBoxLayout" name="ctrlDurationLayout2">
              <item>
-              <widget class="QRadioButton" name="radioButton_10">
+              <widget class="QRadioButton" name="ctrlDuration8">
                <property name="text">
                 <string>Eighth</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_11">
+              <widget class="QRadioButton" name="ctrlDuration4">
                <property name="text">
                 <string>Quarter</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_12">
+              <widget class="QRadioButton" name="ctrlDuration2">
                <property name="text">
                 <string>Half</string>
                </property>
@@ -227,23 +227,23 @@
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
+            <layout class="QHBoxLayout" name="ctrlDurationLayout3">
              <item>
-              <widget class="QRadioButton" name="radioButton_7">
+              <widget class="QRadioButton" name="ctrlDuration64">
                <property name="text">
                 <string>64th</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_8">
+              <widget class="QRadioButton" name="ctrlDuration32">
                <property name="text">
                 <string>32nd</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_9">
+              <widget class="QRadioButton" name="ctrlDuration16">
                <property name="text">
                 <string>16th</string>
                </property>
@@ -252,7 +252,7 @@
             </layout>
            </item>
            <item>
-            <spacer name="verticalSpacer_2">
+            <spacer name="ctrlDurationSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -268,7 +268,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox">
+            <widget class="QCheckBox" name="ctrlDurationDot">
              <property name="text">
               <string>Dotted</string>
              </property>
@@ -280,7 +280,7 @@
        </widget>
       </item>
       <item>
-       <spacer name="verticalSpacer">
+       <spacer name="ctrlMainWindowSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -293,7 +293,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="ctrlEnable">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -320,24 +320,24 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>radioButton_3</tabstop>
-  <tabstop>radioButton</tabstop>
-  <tabstop>radioButton_2</tabstop>
-  <tabstop>radioButton_4</tabstop>
-  <tabstop>radioButton_5</tabstop>
-  <tabstop>radioButton_6</tabstop>
-  <tabstop>radioButton_16</tabstop>
-  <tabstop>radioButton_7</tabstop>
-  <tabstop>radioButton_8</tabstop>
-  <tabstop>radioButton_9</tabstop>
-  <tabstop>radioButton_10</tabstop>
-  <tabstop>radioButton_11</tabstop>
-  <tabstop>radioButton_12</tabstop>
-  <tabstop>radioButton_14</tabstop>
-  <tabstop>radioButton_15</tabstop>
-  <tabstop>radioButton_13</tabstop>
-  <tabstop>checkBox</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>ctrlAccidentalNone</tabstop>
+  <tabstop>ctrlAccidentalFlat</tabstop>
+  <tabstop>ctrlAccidentalSharp</tabstop>
+  <tabstop>ctrlOctaveNone</tabstop>
+  <tabstop>ctrlOctaveDown</tabstop>
+  <tabstop>ctrlOctaveUp</tabstop>
+  <tabstop>ctrlDurationNone</tabstop>
+  <tabstop>ctrlDuration64</tabstop>
+  <tabstop>ctrlDuration32</tabstop>
+  <tabstop>ctrlDuration16</tabstop>
+  <tabstop>ctrlDuration8</tabstop>
+  <tabstop>ctrlDuration4</tabstop>
+  <tabstop>ctrlDuration2</tabstop>
+  <tabstop>ctrlDuration1</tabstop>
+  <tabstop>ctrlDurationBreve</tabstop>
+  <tabstop>ctrlDurationLonga</tabstop>
+  <tabstop>ctrlDurationDot</tabstop>
+  <tabstop>ctrlEnable</tabstop>
  </tabstops>
  <resources/>
  <connections/>

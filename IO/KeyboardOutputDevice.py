@@ -14,7 +14,7 @@ class KeyboardOutputDevice:
         print 'Open keyboard output device.'
         self.device = UInput(name=deviceName)
 
-    def close(self):
+    def stop(self):
 
         if self.isConnected():
             print 'Close keyboard output device.'

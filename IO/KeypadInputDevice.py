@@ -39,6 +39,21 @@ class KeypadInputDevice(QThread):
             self.device.grab()
             self.device.set_led(ecodes.LED_NUML, 1)
 
+    def stop(self):
+
+        if self.isConnected():
+            print 'Ungrab and close keypad input device.'
+            self.device.set_led(ecodes.LED_NUML, 0)
+            self.device.ungrab()
+            self.device.close()
+            self.device = None
+
+        if self.isRunning():
+            if not self.wait(1000):
+                print 'Terminate keypad input thread.'
+                self.terminate()
+                self.wait()
+
     def run(self):
 
         print 'Start keypad input thread.'
@@ -60,18 +75,3 @@ class KeypadInputDevice(QThread):
         except: pass
 
         print 'Finish keypad input thread.'
-
-    def stop(self):
-
-        if self.isConnected():
-            print 'Ungrab and close keypad input device.'
-            self.device.set_led(ecodes.LED_NUML, 0)
-            self.device.ungrab()
-            self.device.close()
-            self.device = None
-
-        if self.isRunning():
-            if not self.wait(1000):
-                print 'Terminate keypad input thread.'
-                self.terminate()
-                self.wait()

@@ -27,7 +27,7 @@ class IOController:
         self.keypadInput.callback.connect(self.keypadInputCallback)
         self.midiInput.callback.connect(self.midiInputCallback)
 
-    def startPolling(self):
+    def start(self):
 
         if not self.keyboardOutput.isConnected():
             print 'Keyboard output device could not be connected!'
@@ -42,9 +42,9 @@ class IOController:
         else:
             print 'MIDI input device could not be connected!'
 
-    def stopPolling(self):
+    def stop(self):
 
-        self.keyboardOutput.close()
+        self.keyboardOutput.stop()
         self.keypadInput.stop()
         self.midiInput.stop()
 
