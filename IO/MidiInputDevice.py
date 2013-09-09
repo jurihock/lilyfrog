@@ -1,9 +1,9 @@
 from PyQt4 import QtCore
-from PyQt4.QtCore import QThread
+from PyQt4.QtCore import QObject
 
 import rtmidi_python as rtmidi
 
-class MidiInputDevice(QThread):
+class MidiInputDevice(QObject):
 
     device = None
     callback = QtCore.pyqtSignal(int)
@@ -11,38 +11,18 @@ class MidiInputDevice(QThread):
     def isConnected(self):
         return self.device is not None
 
-    def __init__(self, midiPort=0):
-
-        QThread.__init__(self)
+    def __init__(self):
+        
+        QObject.__init__(self)
 
         print 'Open MIDI input device.'
         self.device = rtmidi.MidiIn()
+        self.device.callback = self.deviceCallback
+
+    def start(self, midiPort=0):
+
+        print 'Start MIDI input device.'
         self.device.open_port(midiPort)
-
-    def run(self):
-
-        print 'Start MIDI input thread.'
-
-        try:
-
-            # Wait for the next note on message
-            # and callback the note number
-            while True:
-
-                message, velocity = self.device.get_message()
-
-                isValidMessage = \
-                    (message is not None) and \
-                    (message[0] >> 4 == 0x9) and \
-                    (message[2] > 0)
-
-                if isValidMessage:
-                    notenum = message[1]
-                    self.callback.emit(notenum)
-
-        except: pass
-
-        print 'Finish MIDI input thread.'
 
     def stop(self):
 
@@ -51,8 +31,12 @@ class MidiInputDevice(QThread):
             self.device.close_port()
             self.device = None
 
-        if self.isRunning():
-            if not self.wait(1000):
-                print 'Terminate MIDI input thread.'
-                self.terminate()
-                self.wait()
+    def deviceCallback(self, message, velocity):
+
+        isValidMessage = \
+            (message[0] >> 4 == 0x9) and \
+            (message[2] > 0)
+
+        if isValidMessage:
+            notenum = message[1]
+            self.callback.emit(notenum)
