@@ -2,7 +2,7 @@ from PyQt4 import QtCore
 from PyQt4.QtGui import QMainWindow
 
 from MainWindowUI import Ui_MainWindow as MainWindowUI
-from IOController import IOController
+from IO import IOController
 
 class MainWindow(QMainWindow, MainWindowUI):
 
