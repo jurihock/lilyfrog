@@ -12,7 +12,7 @@ class KeypadInputDevice(QThread):
     def isConnected(self):
         return self.device is not None
 
-    def __init__(self, deviceVendor=0x04d9, deviceProduct=0x1203):
+    def __init__(self, deviceVendor, deviceProduct):
 
         QThread.__init__(self)
 

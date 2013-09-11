@@ -3,6 +3,7 @@ from PyQt4.QtCore import QObject
 from evdev.ecodes import *
 
 from IO import *
+from Keypad import *
 from Mappings import NoteNumToStrMap
 
 class IOController(QObject):
@@ -41,7 +42,7 @@ class IOController(QObject):
         QObject.__init__(self)
 
         self.keyboardOutput = KeyboardOutputDevice()
-        self.keypadInput = KeypadInputDevice()
+        self.keypadInput = KeypadInputDevice(KeypadVendor, KeypadProduct)
         self.midiInput = MidiInputDevice()
 
         self.keypadInput.callback.connect(self.keypadInputCallback)
