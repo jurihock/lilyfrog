@@ -3,6 +3,7 @@ from PyQt4.QtCore import QObject
 from evdev.ecodes import *
 
 from IO import *
+from Mappings import NoteNumToNameMap
 
 class IOController(QObject):
 
@@ -162,66 +163,26 @@ class IOController(QObject):
         # if flat was requested
         if notenum >= 0 and self.noteAccidental < 0:
 
-            if notenum == 0:    notestr.append('c')
-            elif notenum == 1:  notestr.append('des')
-            elif notenum == 2:  notestr.append('d')
-            elif notenum == 3:  notestr.append('es')
-            elif notenum == 4:  notestr.append('fes')
-            elif notenum == 5:  notestr.append('f')
-            elif notenum == 6:  notestr.append('ges')
-            elif notenum == 7:  notestr.append('g')
-            elif notenum == 8:  notestr.append('as')
-            elif notenum == 9:  notestr.append('a')
-            elif notenum == 10: notestr.append('bes')
-            elif notenum == 11: notestr.append('ces')
+            notename = NoteNumToNameMap['TemporalFlat'][notenum]
+            notestr.append(notename)
 
         # if sharp was requested
         elif notenum >= 0 and self.noteAccidental > 0:
 
-            if notenum == 0:    notestr.append('bis')
-            elif notenum == 1:  notestr.append('cis')
-            elif notenum == 2:  notestr.append('d')
-            elif notenum == 3:  notestr.append('dis')
-            elif notenum == 4:  notestr.append('e')
-            elif notenum == 5:  notestr.append('eis')
-            elif notenum == 6:  notestr.append('fis')
-            elif notenum == 7:  notestr.append('g')
-            elif notenum == 8:  notestr.append('gis')
-            elif notenum == 9:  notestr.append('a')
-            elif notenum == 10: notestr.append('ais')
-            elif notenum == 11: notestr.append('b')
+            notename = NoteNumToNameMap['TemporalSharp'][notenum]
+            notestr.append(notename)
         
         # if flat is default
         elif notenum >= 0 and self.defaultAccidental < 0:
             
-            if notenum == 0:    notestr.append('c')
-            elif notenum == 1:  notestr.append('des')
-            elif notenum == 2:  notestr.append('d')
-            elif notenum == 3:  notestr.append('es')
-            elif notenum == 4:  notestr.append('e')
-            elif notenum == 5:  notestr.append('f')
-            elif notenum == 6:  notestr.append('ges')
-            elif notenum == 7:  notestr.append('g')
-            elif notenum == 8:  notestr.append('as')
-            elif notenum == 9:  notestr.append('a')
-            elif notenum == 10: notestr.append('bes')
-            elif notenum == 11: notestr.append('b')
+            notename = NoteNumToNameMap['DefaultFlat'][notenum]
+            notestr.append(notename)
 
         # if sharp is default
         elif notenum >= 0 and self.defaultAccidental > 0:
 
-            if notenum == 0:    notestr.append('c')
-            elif notenum == 1:  notestr.append('cis')
-            elif notenum == 2:  notestr.append('d')
-            elif notenum == 3:  notestr.append('dis')
-            elif notenum == 4:  notestr.append('e')
-            elif notenum == 5:  notestr.append('f')
-            elif notenum == 6:  notestr.append('fis')
-            elif notenum == 7:  notestr.append('g')
-            elif notenum == 8:  notestr.append('gis')
-            elif notenum == 9:  notestr.append('a')
-            elif notenum == 10: notestr.append('ais')
-            elif notenum == 11: notestr.append('b')
+            notename = NoteNumToNameMap['DefaultSharp'][notenum]
+            notestr.append(notename)
 
         # if octave was requested
         if notenum >= 0 and self.noteOctave < 0:
