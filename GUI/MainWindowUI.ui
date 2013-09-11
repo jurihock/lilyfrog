@@ -6,23 +6,144 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>340</width>
-    <height>430</height>
+    <width>400</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>LilyFrog Control</string>
+   <string>LilyFrog</string>
   </property>
   <widget class="QWidget" name="ctrlMainWindowWidget">
-   <layout class="QGridLayout" name="ctrlMainWindowWidgetLayout">
-    <item row="0" column="0">
-     <layout class="QVBoxLayout" name="ctrlMainWindowLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
+    <item>
+     <widget class="QGroupBox" name="ctrlDeviceStatus">
+      <property name="title">
+       <string>Device connection status</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QCheckBox" name="ctrlKeyboardOutput">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Keyboard OUT</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="ctrlKeypadInput">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Keypad IN</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="ctrlMidiInput">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>MIDI IN</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="ctrlDefaultAccidental">
+      <property name="title">
+       <string>Default black key behavior</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QRadioButton" name="ctrlDefaultAccidentalFlat">
+         <property name="text">
+          <string>Flat</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="ctrlDefaultAccidentalSharp">
+         <property name="text">
+          <string>Sharp</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="ctrlAccidentalOctaveLayout">
       <item>
-       <widget class="QGroupBox" name="ctrlDeviceStatus">
+       <widget class="QGroupBox" name="ctrlAccidental">
         <property name="title">
-         <string>Device status</string>
+         <string>Accidental change</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_4">
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -32,188 +153,60 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item row="0" column="0">
-          <layout class="QHBoxLayout" name="ctrlDeviceStatusLayout">
-           <item>
-            <widget class="QCheckBox" name="ctrlKeyboardOutput">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Keyboard OUT</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="ctrlKeypadInput">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Keypad IN</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="ctrlMidiInput">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>MIDI IN</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+         <item>
+          <widget class="QRadioButton" name="ctrlAccidentalNone">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>None</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlAccidentalFlat">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Flat</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlAccidentalSharp">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Sharp</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
       </item>
       <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="ctrlMainWindowLayout1">
-        <item>
-         <widget class="QGroupBox" name="ctrlAccidental">
-          <property name="title">
-           <string>Accidental change</string>
-          </property>
-          <property name="checkable">
-           <bool>false</bool>
-          </property>
-          <layout class="QGridLayout" name="gridLayout">
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item row="0" column="0">
-            <layout class="QVBoxLayout" name="ctrlAccidentalLayout">
-             <item>
-              <widget class="QRadioButton" name="ctrlAccidentalNone">
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>None</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlAccidentalFlat">
-               <property name="text">
-                <string>Flat</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlAccidentalSharp">
-               <property name="text">
-                <string>Sharp</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="ctrlOctave">
-          <property name="title">
-           <string>Octave change</string>
-          </property>
-          <property name="checkable">
-           <bool>false</bool>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item row="0" column="0">
-            <layout class="QVBoxLayout" name="ctrlOctaveLayout">
-             <item>
-              <widget class="QRadioButton" name="ctrlOctaveNone">
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>None</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlOctaveDown">
-               <property name="text">
-                <string>Down</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlOctaveUp">
-               <property name="text">
-                <string>Up</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="ctrlDuration">
+       <widget class="QGroupBox" name="ctrlOctave">
         <property name="title">
-         <string>Duration change</string>
+         <string>Octave change</string>
         </property>
         <property name="checkable">
          <bool>false</bool>
         </property>
-        <layout class="QGridLayout" name="gridLayout_3">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -223,171 +216,279 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item row="1" column="0">
-          <layout class="QVBoxLayout" name="ctrlDurationLayout" stretch="0,0,0,0,0,0">
-           <item>
-            <widget class="QRadioButton" name="ctrlDurationNone">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>None</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="ctrlDurationLayout1">
-             <item>
-              <widget class="QRadioButton" name="ctrlDuration1">
-               <property name="text">
-                <string>Whole</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlDurationBreve">
-               <property name="text">
-                <string>Breve</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlDurationLonga">
-               <property name="text">
-                <string>Longa</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="ctrlDurationLayout2">
-             <item>
-              <widget class="QRadioButton" name="ctrlDuration8">
-               <property name="text">
-                <string>Eighth</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlDuration4">
-               <property name="text">
-                <string>Quarter</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlDuration2">
-               <property name="text">
-                <string>Half</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="ctrlDurationLayout3">
-             <item>
-              <widget class="QRadioButton" name="ctrlDuration64">
-               <property name="text">
-                <string>64th</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlDuration32">
-               <property name="text">
-                <string>32nd</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ctrlDuration16">
-               <property name="text">
-                <string>16th</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="ctrlDurationSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>9</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="ctrlDurationDot">
-             <property name="text">
-              <string>Dotted</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+         <item>
+          <widget class="QRadioButton" name="ctrlOctaveNone">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>None</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlOctaveDown">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Down</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlOctaveUp">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Up</string>
+           </property>
+          </widget>
          </item>
         </layout>
-       </widget>
-      </item>
-      <item>
-       <spacer name="ctrlMainWindowSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="ctrlEnable">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Enable LilyFrog</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="checked">
-         <bool>false</bool>
-        </property>
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="ctrlDuration">
+      <property name="title">
+       <string>Duration change</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QRadioButton" name="ctrlDurationNone">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>None</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="ctrlDurationLayout1">
+         <item>
+          <widget class="QRadioButton" name="ctrlDuration1">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Whole</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlDurationBreve">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Breve</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlDurationLonga">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Longa</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="ctrlDurationLayout2">
+         <item>
+          <widget class="QRadioButton" name="ctrlDuration8">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Eighth</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlDuration4">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Quarter</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlDuration2">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Half</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="ctrlDurationLayout3">
+         <item>
+          <widget class="QRadioButton" name="ctrlDuration64">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>64th</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlDuration32">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>32nd</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="ctrlDuration16">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>16th</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="ctrlDurationSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>9</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="ctrlDurationDot">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Dotted</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="ctrlMainWindowSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="ctrlEnable">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Enable LilyFrog</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
  </widget>
  <tabstops>
+  <tabstop>ctrlEnable</tabstop>
+  <tabstop>ctrlKeyboardOutput</tabstop>
+  <tabstop>ctrlKeypadInput</tabstop>
+  <tabstop>ctrlMidiInput</tabstop>
+  <tabstop>ctrlDefaultAccidentalFlat</tabstop>
+  <tabstop>ctrlDefaultAccidentalSharp</tabstop>
   <tabstop>ctrlAccidentalNone</tabstop>
   <tabstop>ctrlAccidentalFlat</tabstop>
   <tabstop>ctrlAccidentalSharp</tabstop>
@@ -395,17 +496,16 @@
   <tabstop>ctrlOctaveDown</tabstop>
   <tabstop>ctrlOctaveUp</tabstop>
   <tabstop>ctrlDurationNone</tabstop>
-  <tabstop>ctrlDuration64</tabstop>
-  <tabstop>ctrlDuration32</tabstop>
-  <tabstop>ctrlDuration16</tabstop>
-  <tabstop>ctrlDuration8</tabstop>
-  <tabstop>ctrlDuration4</tabstop>
-  <tabstop>ctrlDuration2</tabstop>
-  <tabstop>ctrlDuration1</tabstop>
-  <tabstop>ctrlDurationBreve</tabstop>
   <tabstop>ctrlDurationLonga</tabstop>
+  <tabstop>ctrlDurationBreve</tabstop>
+  <tabstop>ctrlDuration1</tabstop>
+  <tabstop>ctrlDuration2</tabstop>
+  <tabstop>ctrlDuration4</tabstop>
+  <tabstop>ctrlDuration8</tabstop>
+  <tabstop>ctrlDuration16</tabstop>
+  <tabstop>ctrlDuration32</tabstop>
+  <tabstop>ctrlDuration64</tabstop>
   <tabstop>ctrlDurationDot</tabstop>
-  <tabstop>ctrlEnable</tabstop>
  </tabstops>
  <resources/>
  <connections/>

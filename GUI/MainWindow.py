@@ -28,6 +28,7 @@ class MainWindow(QMainWindow, MainWindowUI):
             self.ioController.start()
 
             self.ioController.isEnabledCallback.connect(self.onEnableChanged)
+            self.ioController.noteParamCallback.connect(self.onNoteParamChanged)
 
             self.ctrlKeyboardOutput.setChecked( \
                 self.ioController.keyboardOutput.isConnected())
@@ -35,7 +36,6 @@ class MainWindow(QMainWindow, MainWindowUI):
                 self.ioController.keypadInput.isConnected())
             self.ctrlMidiInput.setChecked( \
                 self.ioController.midiInput.isConnected())
-            
 
     def closeEvent(self, event):
 
@@ -43,48 +43,19 @@ class MainWindow(QMainWindow, MainWindowUI):
         event.accept()
 
     def connectControlSignals(self):
-
-        self.ctrlAccidentalNone.toggled.connect(self.onAccidentalToggled)
-        self.ctrlAccidentalFlat.toggled.connect(self.onAccidentalToggled)
-        self.ctrlAccidentalSharp.toggled.connect(self.onAccidentalToggled)
         
-        self.ctrlOctaveNone.toggled.connect(self.onOctaveToggled)
-        self.ctrlOctaveDown.toggled.connect(self.onOctaveToggled)
-        self.ctrlOctaveUp.toggled.connect(self.onOctaveToggled)
-
-        self.ctrlDurationNone.toggled.connect(self.onDurationToggled)
-        self.ctrlDuration64.toggled.connect(self.onDurationToggled)
-        self.ctrlDuration32.toggled.connect(self.onDurationToggled)
-        self.ctrlDuration16.toggled.connect(self.onDurationToggled)
-        self.ctrlDuration8.toggled.connect(self.onDurationToggled)
-        self.ctrlDuration4.toggled.connect(self.onDurationToggled)
-        self.ctrlDuration2.toggled.connect(self.onDurationToggled)
-        self.ctrlDuration1.toggled.connect(self.onDurationToggled)
-        self.ctrlDurationBreve.toggled.connect(self.onDurationToggled)
-        self.ctrlDurationLonga.toggled.connect(self.onDurationToggled)
-
-        self.ctrlDurationDot.toggled.connect(self.onDurationDotToggled)
+        self.ctrlDefaultAccidentalFlat.toggled.connect(self.onDefaultAccidentalToggled)
+        self.ctrlDefaultAccidentalSharp.toggled.connect(self.onDefaultAccidentalToggled)
 
         self.ctrlEnable.toggled.connect(self.onEnableToggled)
 
     @QtCore.pyqtSlot(bool)
-    def onAccidentalToggled(self, checked):
+    def onDefaultAccidentalToggled(self, checked):
         if checked:
-            print 'onAccidentalToggled'
-
-    @QtCore.pyqtSlot(bool)
-    def onOctaveToggled(self, checked):
-        if checked:
-            print 'onOctaveToggled'
-
-    @QtCore.pyqtSlot(bool)
-    def onDurationToggled(self, checked):
-        if checked:
-            print 'onDurationToggled'
-    
-    @QtCore.pyqtSlot(bool)
-    def onDurationDotToggled(self, checked):
-        print 'onDurationDotToggled'
+            if self.ctrlDefaultAccidentalFlat.isChecked():
+                self.ioController.defaultAccidental = -1
+            elif self.ctrlDefaultAccidentalSharp.isChecked():
+                self.ioController.defaultAccidental = 1
 
     @QtCore.pyqtSlot(bool)
     def onEnableToggled(self, checked):
@@ -93,3 +64,44 @@ class MainWindow(QMainWindow, MainWindowUI):
     @QtCore.pyqtSlot(bool)
     def onEnableChanged(self, checked):
         self.ctrlEnable.setChecked(checked)
+        
+    @QtCore.pyqtSlot()
+    def onNoteParamChanged(self):
+
+        if self.ioController.noteDuration == 1/4.:
+            self.ctrlDurationLonga.setChecked(True)
+        elif self.ioController.noteDuration == 1/2.:
+            self.ctrlDurationBreve.setChecked(True)
+        elif self.ioController.noteDuration == 1:
+            self.ctrlDuration1.setChecked(True)
+        elif self.ioController.noteDuration == 2:
+            self.ctrlDuration2.setChecked(True)
+        elif self.ioController.noteDuration == 4:
+            self.ctrlDuration4.setChecked(True)
+        elif self.ioController.noteDuration == 8:
+            self.ctrlDuration8.setChecked(True)
+        elif self.ioController.noteDuration == 16:
+            self.ctrlDuration16.setChecked(True)
+        elif self.ioController.noteDuration == 32:
+            self.ctrlDuration32.setChecked(True)
+        elif self.ioController.noteDuration == 64:
+            self.ctrlDuration64.setChecked(True)
+        else:
+            self.ctrlDurationNone.setChecked(True)
+            
+        self.ctrlDurationDot.setChecked( \
+            self.ioController.noteDot)
+
+        if self.ioController.noteOctave == -1:
+            self.ctrlOctaveDown.setChecked(True)
+        elif self.ioController.noteOctave == 1:
+            self.ctrlOctaveUp.setChecked(True)
+        else:
+            self.ctrlOctaveNone.setChecked(True)
+
+        if self.ioController.noteAccidental == -1:
+            self.ctrlAccidentalFlat.setChecked(True)
+        elif self.ioController.noteAccidental == 1:
+            self.ctrlAccidentalSharp.setChecked(True)
+        else:
+            self.ctrlAccidentalNone.setChecked(True)
