@@ -3,7 +3,7 @@ from PyQt4.QtCore import QObject
 from evdev.ecodes import *
 
 from IO import *
-from Mappings import NoteNumToNameMap
+from Mappings import NoteNumToStrMap
 
 class IOController(QObject):
 
@@ -163,25 +163,25 @@ class IOController(QObject):
         # if flat was requested
         if notenum >= 0 and self.noteAccidental < 0:
 
-            notename = NoteNumToNameMap['TemporalFlat'][notenum]
+            notename = NoteNumToStrMap['TemporalFlat'][notenum]
             notestr.append(notename)
 
         # if sharp was requested
         elif notenum >= 0 and self.noteAccidental > 0:
 
-            notename = NoteNumToNameMap['TemporalSharp'][notenum]
+            notename = NoteNumToStrMap['TemporalSharp'][notenum]
             notestr.append(notename)
         
         # if flat is default
         elif notenum >= 0 and self.defaultAccidental < 0:
             
-            notename = NoteNumToNameMap['DefaultFlat'][notenum]
+            notename = NoteNumToStrMap['DefaultFlat'][notenum]
             notestr.append(notename)
 
         # if sharp is default
         elif notenum >= 0 and self.defaultAccidental > 0:
 
-            notename = NoteNumToNameMap['DefaultSharp'][notenum]
+            notename = NoteNumToStrMap['DefaultSharp'][notenum]
             notestr.append(notename)
 
         # if octave was requested

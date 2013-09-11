@@ -1,6 +1,6 @@
 from evdev.ecodes import *
 
-StringToKeyMap = \
+KeyChrToCodeMap = \
 {
     # Note names
     'c':  [KEY_C],
@@ -40,7 +40,7 @@ StringToKeyMap = \
     ' ':  [KEY_SPACE]
 }
 
-NoteNumToNameMap = \
+NoteNumToStrMap = \
 {
         'DefaultFlat':
         {

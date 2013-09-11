@@ -2,7 +2,7 @@ from evdev import UInput
 from evdev.events import KeyEvent
 from evdev.ecodes import *
 
-from Mappings import StringToKeyMap
+from Mappings import KeyChrToCodeMap
 
 class KeyboardOutputDevice:
 
@@ -33,9 +33,9 @@ class KeyboardOutputDevice:
 
         for keychr in keystr:
 
-            if keychr in StringToKeyMap:
+            if keychr in KeyChrToCodeMap:
 
-                scancode = StringToKeyMap[keychr]
+                scancode = KeyChrToCodeMap[keychr]
                 scancodes.extend(scancode)
 
             else: raise ValueError('Invalid key string value \'%s\'!' % keychr)
