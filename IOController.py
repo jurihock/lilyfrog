@@ -6,31 +6,37 @@ from IO import *
 
 class IOController(QObject):
 
+    # Controller state
+
+    __isEnabled = False
+
+    def isEnabled(self):
+        return self.__isEnabled
+
+    def setEnabled(self, value):
+        self.__isEnabled = value
+        self.keypadInput.setLed(value)
+        self.reset()
+
+    isEnabled = property(isEnabled, setEnabled)
+    isEnabledCallback = QtCore.pyqtSignal(bool)
+
+    # IO devices
     keyboardOutput = None
     keypadInput    = None
     midiInput      = None
 
-    __isEnabled = False
-
-    def getIsEnabled(self):
-        return self.__isEnabled
-        
-    def setIsEnabled(self, value):
-        self.__isEnabled = value
-        self.keypadInput.setLed(value)
-
-    isEnabled = property(getIsEnabled, setIsEnabled)
-    isEnabledCallback = QtCore.pyqtSignal(bool)
-
-    noteDuration          = []
-    isDotRequested        = False
-    isOctaveDownRequested = False
-    isOctaveUpRequested   = False
-    isFlatRequested       = False
-    isSharpRequested      = False
+    # Note parameters and possible values
+    noteDuration      = 0     # 0 (none) 1/4. (longa) 1/2. (breve) 1 2 4 8 16 32 64
+    noteDot           = False # True or False
+    noteOctave        = 0     # -1 (down) 0 (none) +1 (up)
+    noteAccidental    = 0     # -1 (flat) 0 (none) +1 (sharp)
+    defaultAccidental = -1    # -1 (flat) +1 (sharp)
+    
+    noteParamCallback = QtCore.pyqtSignal()
 
     def __init__(self):
-        
+
         QObject.__init__(self)
 
         self.keyboardOutput = KeyboardOutputDevice()
@@ -39,6 +45,15 @@ class IOController(QObject):
 
         self.keypadInput.callback.connect(self.keypadInputCallback)
         self.midiInput.callback.connect(self.midiInputCallback)
+        
+    def reset(self):
+        
+        self.noteDuration   = 0
+        self.noteDot        = False
+        self.noteOctave     = 0
+        self.noteAccidental = 0
+        
+        self.noteParamCallback.emit()
 
     def start(self):
 
@@ -64,7 +79,7 @@ class IOController(QObject):
     @QtCore.pyqtSlot(int)
     def keypadInputCallback(self, scancode):
 
-        # print scancode
+        # print 'keypadInputCallback => %i' % scancode
 
         if scancode == KEY_NUMLOCK:
 
@@ -72,168 +87,162 @@ class IOController(QObject):
             self.isEnabledCallback.emit(self.isEnabled)
             return
 
-        if scancode == KEY_SPACE:
-
-            self.isEnabled = False
-            self.isEnabledCallback.emit(self.isEnabled)
-            return
-
         elif not self.isEnabled: return
 
-        keys = []
-
-        # State variables
-        if scancode == KEY_KPDOT:
-            self.isDotRequested = not self.isDotRequested
-        elif scancode == KEY_KPMINUS:
-            self.isOctaveDownRequested = not self.isOctaveDownRequested
-        elif scancode == KEY_KPPLUS:
-            self.isOctaveUpRequested = not self.isOctaveUpRequested
-        elif scancode == KEY_KPSLASH:
-            self.isFlatRequested = not self.isFlatRequested
-        elif scancode == KEY_KPASTERISK:
-            self.isSharpRequested = not self.isSharpRequested
-        # Note duration
-        elif scancode == KEY_KP1:
-            self.noteDuration = [KEY_6, KEY_4]
+        # Note parameters
+        if scancode == KEY_KP1:
+            self.noteDuration = 64 if self.noteDuration != 64 else 0
         elif scancode == KEY_KP2:
-            self.noteDuration = [KEY_3, KEY_2]
+            self.noteDuration = 32 if self.noteDuration != 32 else 0
         elif scancode == KEY_KP3:
-            self.noteDuration = [KEY_1, KEY_6]
+            self.noteDuration = 16 if self.noteDuration != 16 else 0
         elif scancode == KEY_KP4:
-            self.noteDuration = [KEY_8]
+            self.noteDuration = 8 if self.noteDuration != 8 else 0
         elif scancode == KEY_KP5:
-            self.noteDuration = [KEY_4]
+            self.noteDuration = 4 if self.noteDuration != 4 else 0
         elif scancode == KEY_KP6:
-            self.noteDuration = [KEY_2]
+            self.noteDuration = 2 if self.noteDuration != 2 else 0
         elif scancode == KEY_KP7:
-            self.noteDuration = [KEY_1]
+            self.noteDuration = 1 if self.noteDuration != 1 else 0
         elif scancode == KEY_KP8:
-            self.noteDuration = [KEY_BACKSLASH, KEY_B, KEY_R, KEY_E, KEY_V, KEY_E]
+            self.noteDuration = 1/2. if self.noteDuration != 1/2. else 0
         elif scancode == KEY_KP9:
-            self.noteDuration = [KEY_BACKSLASH, KEY_L, KEY_O, KEY_N, KEY_G, KEY_A]
-        # Special keys
-        elif scancode == KEY_BACKSPACE:
-            keys.extend([KEY_BACKSPACE])
-        elif scancode == KEY_KPENTER:
-            keys.extend([[KEY_BACKSLASH], KEY_ENTER])
-        elif scancode == KEY_KP0:
-            keys.extend([KEY_R, KEY_SPACE])
+            self.noteDuration = 1/4. if self.noteDuration != 1/4. else 0
+        elif scancode == KEY_KPDOT:
+            self.noteDot = not self.noteDot
+        elif scancode == KEY_KPMINUS:
+            self.noteOctave = -1 if self.noteOctave >= 0 else 0
+        elif scancode == KEY_KPPLUS:
+            self.noteOctave = +1 if self.noteOctave <= 0 else 0
+        elif scancode == KEY_KPSLASH:
+            self.noteAccidental = -1 if self.noteAccidental >= 0 else 0
+        elif scancode == KEY_KPASTERISK:
+            self.noteAccidental = +1 if self.noteAccidental <= 0 else 0
 
-        self.keyboardOutput.pressKeys(keys)
+        self.noteParamCallback.emit()
+
+        notestr = ''
+
+        # Special keys
+        if scancode == KEY_BACKSPACE:
+            notestr = '\b'
+        elif scancode == KEY_KP0:
+            notestr = self.getNoteString(-1)
+            self.reset()
+        elif scancode == KEY_SPACE:
+            notestr = '~ '
+        elif scancode == KEY_KPENTER:
+            notestr = '|\n'
+
+        self.keyboardOutput.pressKeyString(notestr)
 
     @QtCore.pyqtSlot(int)
-    def midiInputCallback(self, notenum):
+    def midiInputCallback(self, scancode):
 
-        # print notenum % 12, notenum / 12
-        
+        # print 'midiInputCallback => %i' % scancode
+
         if not self.isEnabled: return
 
-        note = notenum % 12
-        # octave = notenum / 12
+        notenum = scancode % 12
+        # octavenum = scancode / 12
 
-        keys = []
+        notestr = self.getNoteString(notenum)
+        self.reset()
 
-        if self.isFlatRequested:
+        self.keyboardOutput.pressKeyString(notestr)
 
-            if note == 0:
-                keys.extend([KEY_C])
-            elif note == 1:
-                keys.extend([KEY_D, KEY_E, KEY_S])
-            elif note == 2:
-                keys.extend([KEY_D])
-            elif note == 3:
-                keys.extend([KEY_E, KEY_S])
-            elif note == 4:
-                keys.extend([KEY_F, KEY_E, KEY_S])
-            elif note == 5:
-                keys.extend([KEY_F])
-            elif note == 6:
-                keys.extend([KEY_G, KEY_E, KEY_S])
-            elif note == 7:
-                keys.extend([KEY_G])
-            elif note == 8:
-                keys.extend([KEY_A, KEY_S])
-            elif note == 9:
-                keys.extend([KEY_A])
-            elif note == 10:
-                keys.extend([KEY_B, KEY_E, KEY_S])
-            elif note == 11:
-                keys.extend([KEY_C, KEY_E, KEY_S])
-
-            self.isFlatRequested = not self.isFlatRequested
-
-        elif self.isSharpRequested:
-
-            if note == 0:
-                keys.extend([KEY_H, KEY_I, KEY_S])
-            elif note == 1:
-                keys.extend([KEY_C, KEY_I, KEY_S])
-            elif note == 2:
-                keys.extend([KEY_D])
-            elif note == 3:
-                keys.extend([KEY_D, KEY_I, KEY_S])
-            elif note == 4:
-                keys.extend([KEY_E])
-            elif note == 5:
-                keys.extend([KEY_E, KEY_I, KEY_S])
-            elif note == 6:
-                keys.extend([KEY_F, KEY_I, KEY_S])
-            elif note == 7:
-                keys.extend([KEY_G])
-            elif note == 8:
-                keys.extend([KEY_G, KEY_I, KEY_S])
-            elif note == 9:
-                keys.extend([KEY_A])
-            elif note == 10:
-                keys.extend([KEY_A, KEY_I, KEY_S])
-            elif note == 11:
-                keys.extend([KEY_B])
-
-            self.isSharpRequested = not self.isSharpRequested
-
-        else:
-
-            if note == 0:
-                keys.extend([KEY_C])
-            elif note == 1:
-                keys.extend([KEY_C, KEY_I, KEY_S])
-            elif note == 2:
-                keys.extend([KEY_D])
-            elif note == 3:
-                keys.extend([KEY_D, KEY_I, KEY_S])
-            elif note == 4:
-                keys.extend([KEY_E])
-            elif note == 5:
-                keys.extend([KEY_F])
-            elif note == 6:
-                keys.extend([KEY_F, KEY_I, KEY_S])
-            elif note == 7:
-                keys.extend([KEY_G])
-            elif note == 8:
-                keys.extend([KEY_G, KEY_I, KEY_S])
-            elif note == 9:
-                keys.extend([KEY_A])
-            elif note == 10:
-                keys.extend([KEY_A, KEY_I, KEY_S])
-            elif note == 11:
-                keys.extend([KEY_B])
+    def getNoteString(self, notenum):
         
-        if self.isOctaveDownRequested:
-            keys.extend([KEY_COMMA])
-            self.isOctaveDownRequested = not self.isOctaveDownRequested
-        elif self.isOctaveUpRequested:
-            keys.extend([KEY_APOSTROPHE])
-            keys.extend([KEY_SPACE]) # because of dead key keyboard layout
-            self.isOctaveUpRequested = not self.isOctaveUpRequested
+        notestr = []
+        
+        # if rest, not note
+        if notenum == -1:
+            notestr.append('r')
 
-        keys.extend(self.noteDuration)
-        self.noteDuration = []
+        # if flat was requested
+        if notenum >= 0 and self.noteAccidental < 0:
 
-        if self.isDotRequested:
-            keys.extend([KEY_DOT])
-            self.isDotRequested = not self.isDotRequested
+            if notenum == 0:    notestr.append('c')
+            elif notenum == 1:  notestr.append('des')
+            elif notenum == 2:  notestr.append('d')
+            elif notenum == 3:  notestr.append('es')
+            elif notenum == 4:  notestr.append('fes')
+            elif notenum == 5:  notestr.append('f')
+            elif notenum == 6:  notestr.append('ges')
+            elif notenum == 7:  notestr.append('g')
+            elif notenum == 8:  notestr.append('as')
+            elif notenum == 9:  notestr.append('a')
+            elif notenum == 10: notestr.append('bes')
+            elif notenum == 11: notestr.append('ces')
 
-        keys.extend([KEY_SPACE])
+        # if sharp was requested
+        elif notenum >= 0 and self.noteAccidental > 0:
 
-        self.keyboardOutput.pressKeys(keys)
+            if notenum == 0:    notestr.append('bis')
+            elif notenum == 1:  notestr.append('cis')
+            elif notenum == 2:  notestr.append('d')
+            elif notenum == 3:  notestr.append('dis')
+            elif notenum == 4:  notestr.append('e')
+            elif notenum == 5:  notestr.append('eis')
+            elif notenum == 6:  notestr.append('fis')
+            elif notenum == 7:  notestr.append('g')
+            elif notenum == 8:  notestr.append('gis')
+            elif notenum == 9:  notestr.append('a')
+            elif notenum == 10: notestr.append('ais')
+            elif notenum == 11: notestr.append('b')
+        
+        # if flat is default
+        elif notenum >= 0 and self.defaultAccidental < 0:
+            
+            if notenum == 0:    notestr.append('c')
+            elif notenum == 1:  notestr.append('des')
+            elif notenum == 2:  notestr.append('d')
+            elif notenum == 3:  notestr.append('es')
+            elif notenum == 4:  notestr.append('e')
+            elif notenum == 5:  notestr.append('f')
+            elif notenum == 6:  notestr.append('ges')
+            elif notenum == 7:  notestr.append('g')
+            elif notenum == 8:  notestr.append('as')
+            elif notenum == 9:  notestr.append('a')
+            elif notenum == 10: notestr.append('bes')
+            elif notenum == 11: notestr.append('b')
+
+        # if sharp is default
+        elif notenum >= 0 and self.defaultAccidental > 0:
+
+            if notenum == 0:    notestr.append('c')
+            elif notenum == 1:  notestr.append('cis')
+            elif notenum == 2:  notestr.append('d')
+            elif notenum == 3:  notestr.append('dis')
+            elif notenum == 4:  notestr.append('e')
+            elif notenum == 5:  notestr.append('f')
+            elif notenum == 6:  notestr.append('fis')
+            elif notenum == 7:  notestr.append('g')
+            elif notenum == 8:  notestr.append('gis')
+            elif notenum == 9:  notestr.append('a')
+            elif notenum == 10: notestr.append('ais')
+            elif notenum == 11: notestr.append('b')
+
+        # if octave was requested
+        if notenum >= 0 and self.noteOctave < 0:
+            notestr.append(',')
+        elif notenum >= 0 and self.noteOctave > 0:
+            notestr.append('\'')
+
+        # if duration was requested
+        if self.noteDuration:
+            if self.noteDuration == 1/4.:
+                notestr.append('\\longa')
+            elif self.noteDuration == 1/2.:
+                notestr.append('\\breve')
+            else:
+                notestr.append(str(self.noteDuration))
+        
+        # if dot was requested
+        if self.noteDot:
+            notestr.append('.')
+
+        # note delimiter
+        notestr.append(' ')
+
+        return ''.join(notestr)
