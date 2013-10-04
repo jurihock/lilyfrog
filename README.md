@@ -22,3 +22,45 @@ Setup instructions
  3. Start QjackCtl and plug in the MIDI keyboard. Connect the MIDI keyboard output to *MIDI through* input or optionally to *RtMidi client* input after the next step.
  4. Execute the `lilyfrog` command. You'll be prompted to enter the superuser password.
  5. Optionally adjust keyboard key combinations and note names in the `Mappings.py` file depending on your needs.
+
+Keypad shortcuts
+----------------
+
+To activate LilyFrog press the `NumLock` button. If the keypad has a LED indicator, it should get on.
+
+There are two kinds of keypad shortcuts: passive and active. Passive shortcuts produces no output itself, they only changes the temporal note or rest state until a MIDI key or the rest shortcut is pressed. With passive shortcuts you can control the duration, accidental and relative octave of the note/rest. After entering a note/rest the temporal state will be automatically reset. Press a passive shortcut twice to undo the state change. Active keypad shortcuts don't reset any temporal state, but they produces an output.
+
+Note/rest duration:
+
+ * `1`: 64th
+ * `2`: 32nd
+ * `3`: 16th
+ * `4`: Eighth
+ * `5`: Quarter
+ * `6`: Half
+ * `7`: Whole
+ * `8`: Breve
+ * `9`: Longa
+ * `.`: Dot
+
+Note accidental:
+
+ * '/': Flat
+ * '*': Sharp
+
+A temporal accidental is not restricted to the black keys only. It is also possible to produce notes like `eis` by pressing '*' on the keypad and 'f' on the MIDI keyboard respectively.
+
+Relative octave mark:
+
+ * '-': Down
+ * '+': Up
+
+Common active keys:
+
+ * '0': Inserts a rest `r` instead of note
+ * 'Enter': Inserts a bar check `|` and a line break
+
+Special active keys (depending on keypad manufacturer):
+
+ * 'Backspace': Deletes the last typed character
+ * 'Space': Inserts a tie `~`
