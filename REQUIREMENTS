@@ -1,0 +1,2 @@
+sudo pip install evdev
+sudo pip install git+https://github.com/superquadratic/rtmidi-python
