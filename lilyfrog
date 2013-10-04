@@ -3,8 +3,4 @@
 SCRIPTPATH=$(readlink -f "$0")
 SCRIPTDIR=$(dirname "$SCRIPTPATH")
 
-TITLE="LilyFrog"
-TEXT="Please enter your superuser password:"
-PASSWORD=$(zenity --entry --hide-text --title="$TITLE" --text="$TEXT")
-
-echo $PASSWORD | sudo -S python $SCRIPTDIR/LilyFrog.py
+beesu python $SCRIPTDIR/LilyFrog.py
