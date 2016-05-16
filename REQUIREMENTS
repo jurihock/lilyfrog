@@ -1,2 +1,2 @@
-sudo pip install evdev
-sudo pip install git+https://github.com/superquadratic/rtmidi-python
+git+https://github.com/gvalkov/python-evdev
+git+https://github.com/superquadratic/rtmidi-python

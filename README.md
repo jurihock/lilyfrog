@@ -17,7 +17,7 @@ Because of specific keypad handling, it runs only on Linux (at the moment) and o
 Setup instructions
 ------------------
 
- 1. Install PyQt4 from your Linux distribution repository. Download two remaining libraries and run `sudo python setup.py install` respectively.
+ 1. Install PyQt4 from your Linux distribution repository. Download two remaining libraries and run `sudo python setup.py install` respectively. Alternatively execute `sudo pip install -r REQUIREMENTS`.
  2. Find out the keypad vendor and product number by executing `lsusb`. You may run this command twice, before and after connecting the keypad to quickly find the right entry. Insert both numbers into the `Keypad.py` file.
  3. Start QjackCtl and plug in the MIDI keyboard. Connect the MIDI keyboard output to *MIDI through* input or optionally to *RtMidi client* input after the next step.
  4. Execute the `lilyfrog` command. You'll be prompted to enter the superuser password.
